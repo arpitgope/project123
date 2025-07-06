@@ -44,6 +44,15 @@ let deviceStates = {
   pump: false,
   light: false,
 };
+const runSeed = require("./seed");
+app.get("/api/seed", async (req, res) => {
+  try {
+    await runSeed();
+    res.send("✅ Seeded 100 entries!");
+  } catch (e) {
+    res.status(500).send("❌ Seeding failed");
+  }
+});
 
 app.post("/api/control/:device", (req, res) => {
   const { device } = req.params;
